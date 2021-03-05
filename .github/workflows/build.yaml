@@ -1,0 +1,35 @@
+# vim: sw=2
+
+name: build
+
+on:
+  push:
+    branches:
+    - preonic
+    paths:
+    - '*.c'
+    - '*.h'
+    - '*.mk'
+    - .github/workflows/build.yaml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: qmkfm/base_container
+
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+        ref: 73b8f85816c3209f6213e358a0d3737c7a73d45f
+        repository: qmk/qmk_firmware
+        submodules: recursive
+        path: ''
+
+    - uses: actions/checkout@v2
+      with:
+        path: keyboards/preonic/keymaps/xnuk
+
+    - run: pip3 install --user -r requirements.txt
+
+    - run: bin/qmk compile -kb preonic/rev3 -km xnuk
