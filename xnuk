@@ -1,0 +1,21 @@
+default partial alphanumeric_keys modifier_keys 
+
+partial alphanumeric_keys
+xkb_symbols "colemak" {
+
+    include "us(colemak)"
+    name[Group1]= "English (Colemak)";
+
+    key <AD05> { [            b,            B ] };
+
+    key <AC05> { [            g,            G ] };
+    key <AC06> { [            m,            M ] };
+
+    key <AB04> { [            d,            D ] };
+    key <AB05> { [            v,            V ] };
+    key <AB07> { [            h,            H ] };
+
+    key <CAPS> { [ Escape ] };
+
+    include "level3(ralt_switch)"
+};
