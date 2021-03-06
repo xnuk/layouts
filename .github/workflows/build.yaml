@@ -7,9 +7,9 @@ on:
     branches:
     - preonic
     paths:
-    - '*.c'
-    - '*.h'
-    - '*.mk'
+    - *.c
+    - *.h
+    - *.mk
     - .github/workflows/build.yaml
 
 jobs:
@@ -31,5 +31,9 @@ jobs:
         path: keyboards/preonic/keymaps/xnuk
 
     - run: pip3 install --user -r requirements.txt
-
     - run: bin/qmk compile -kb preonic/rev3 -km xnuk
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: preonic_rev3_xnuk
+        path: preonic_rev3_xnuk.*
