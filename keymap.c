@@ -26,6 +26,9 @@ enum preonic_layers
 , Layer_left_mod
 , Layer_right_mod
 , Layer_adjust
+, Layer_danger
+, Layer_mouse
+, Layer_wheel
 };
 
 // enum preonic_keycodes
@@ -43,18 +46,18 @@ enum preonic_layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 { [Layer_default] = LAYOUT_ortho_5x12
-( KC_GRAVE         , KC_1      , KC_2      , KC_3      , KC_4                          , KC_5     , KC_6     , KC_7                           , KC_8      , KC_9      , KC_0      , KC_BSPACE
-, LALT_T(KC_TAB)   , KC_Q      , KC_W      , KC_F      , KC_P                          , KC_B     , KC_J     , KC_L                           , KC_U      , KC_Y      , KC_SCLN   , KC_BSPACE
-, LCTL_T(KC_ESC)   , KC_A      , KC_R      , KC_S      , KC_T                          , KC_G     , KC_M     , KC_N                           , KC_E      , KC_I      , KC_O      , KC_MINS
-, KC_LSPO          , KC_Z      , KC_X      , KC_C      , KC_D                          , KC_V     , KC_K     , KC_H                           , KC_COMMA  , KC_DOT    , KC_SLASH  , KC_ENTER
-, ALL_T(KC_BSLS)   , KC_LALT   , KC_LCTRL  , KC_LGUI   , LT(Layer_left_mod,KC_RIGHT)   , KC_SPC   , KC_SPC   , LT(Layer_right_mod,KC_HAEN)    , KC_LEFT   , KC_DOWN   , KC_UP     , KC_RIGHT
+( KC_GRAVE         , KC_1      , KC_2      , KC_3      , KC_4                          , KC_5     , KC_6     , KC_7                           , KC_8                      , KC_9      , KC_0      , KC_BSPACE
+, LALT_T(KC_TAB)   , KC_Q      , KC_W      , KC_F      , KC_P                          , KC_B     , KC_J     , KC_L                           , KC_U                      , KC_Y      , KC_SCLN   , KC_BSPACE
+, LCTL_T(KC_ESC)   , KC_A      , KC_R      , KC_S      , KC_T                          , KC_G     , KC_M     , KC_N                           , KC_E                      , KC_I      , KC_O      , KC_MINS
+, KC_LSPO          , KC_Z      , KC_X      , KC_C      , KC_D                          , KC_V     , KC_K     , KC_H                           , KC_COMMA                  , KC_DOT    , KC_SLASH  , KC_ENTER
+, ALL_T(KC_BSLS)   , KC_LALT   , KC_LCTRL  , KC_LGUI   , LT(Layer_left_mod,KC_RIGHT)   , KC_SPC   , KC_SPC   , LT(Layer_right_mod,KC_HAEN)    , LT(Layer_mouse,KC_LEFT)   , KC_DOWN   , KC_UP     , KC_RIGHT
 )
 
 , [Layer_left_mod] = LAYOUT_ortho_5x12
 ( _  , KC_EXLM    , KC_AT      , KC_HASH    , KC_DOLLAR  , KC_PERCENT , KC_CARET   , KC_AMPERSAND , KC_ASTERISK    , KC_DQUOTE  , KC_COLN        , KC_DEL
 , _  , KC_EXLM    , KC_AT      , KC_HASH    , KC_DOLLAR  , KC_PERCENT , KC_CARET   , KC_AMPERSAND , KC_ASTERISK    , KC_DQUOTE  , KC_COLN        , KC_DEL
 , _  , KC_PIPE    , KC_GRV     , KC_QUOT    , KC_EQUAL   , KC_PLUS    , KC_LBRC    , KC_LCBR      , KC_R_PAREN     , KC_RCBR    , KC_RBRC        , KC_UNDERSCORE
-, _  , _          , _          , KC_LT      , KC_GT      , KC_TILDE   , _          , KC_L_CURLY   , KC_RBRC        , KC_DOT     , KC_QUESTION    , _
+, _  , _          , _          , KC_LT      , KC_GT      , KC_TILDE   , _          , KC_L_CURLY   , KC_RBRC        , _          , KC_QUESTION    , _
 , _  , _          , _          , _          , _          , _          , _          , _            , _              , _          , _              , _
 )
 
@@ -67,11 +70,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 )
 
 , [Layer_adjust] = LAYOUT_ortho_5x12
-( MAGIC_TOGGLE_NKRO     , _          , _           , _           , _            , _     , _     , _           , _           , _           , _          , RESET
-, _                     , _          , _           , _           , RGB_SPI      , _     , _     , RGB_SPD     , _           , _           , _          , _
-, _                     , BL_INC     , RGB_SAI     , RGB_HUI     , RGB_RMOD     , _     , _     , RGB_MOD     , RGB_HUD     , RGB_SAD     , BL_DEC     , _
-, _                     , _          , _           , _           , _            , _     , _     , _           , _           , _           , _          , _
-, _                     , _          , _           , _           , _            , _     , _     , _           , _           , _           , _          , _
+( _                     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
+, KC_F1                 , KC_F2       , KC_F3                 , KC_F4             , KC_F5                , KC_F6    , KC_F7      , KC_F8                , KC_F9       , KC_F10      , KC_F11     , KC_F12
+, _                     , RGB_VAI     , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _        , _          , MO(Layer_danger)     , _           , _           , _          , _
+, _                     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
+, TO(Layer_default)     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
+)
+
+, [Layer_danger] = LAYOUT_ortho_5x12
+( MAGIC_TOGGLE_NKRO   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , RESET
+, _                   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
+, _                   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
+, _                   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
+, TO(Layer_default)   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
+)
+
+, [Layer_mouse] = LAYOUT_ortho_5x12
+( _                   , _                , _                , _                 , _               , _               , _               , _                , _              , _                , _      , _
+, _                   , _                , KC_MS_BTN2       , KC_MS_BTN3        , KC_MS_BTN1      , _               , _               , _                , KC_MS_UP       , _                , _      , _
+, _                   , KC_MS_ACCEL2     , KC_MS_ACCEL1     , KC_MS_ACCEL0      , MO(Layer_wheel) , KC_MS_BTN3      , KC_MS_BTN3      , KC_MS_LEFT       , KC_MS_DOWN     , KC_MS_RIGHT      , _      , KC_MS_BTN2
+, _                   , _                , _                , _                 , _               , _               , _               , _                , _              , _                , _      , _
+, _                   , _                , _                , _                 , _               , KC_MS_BTN1      , _               , _                , _              , _                , _      , _
+)
+
+, [Layer_wheel] = LAYOUT_ortho_5x12
+( _                   , _                , _                , _                 , _             , _               , _               , _                   , _                 , _                   , _      , _
+, _                   , _                , KC_MS_BTN2       , KC_MS_BTN3        , KC_MS_BTN1    , _               , _               , _                   , KC_MS_WH_UP       , _                   , _      , _
+, _                   , KC_MS_ACCEL2     , KC_MS_ACCEL1     , KC_MS_ACCEL0      , _             , KC_MS_BTN3      , KC_MS_BTN3      , KC_MS_WH_LEFT       , KC_MS_WH_DOWN     , KC_MS_WH_RIGHT      , _      , KC_MS_BTN2
+, _                   , _                , _                , _                 , _             , _               , _               , _                   , _                 , _                   , _      , _
+, _                   , _                , _                , _                 , _             , KC_MS_BTN1      , _               , _                   , _                 , _                   , _      , _
 )
 
 };
@@ -87,6 +114,8 @@ __attribute__ ((weak))
 enum preonic_rgb_layers
 { Light_default
 , Light_adjust
+, Light_danger
+, Light_mouse
 };
 
 #define COLO_IDENT(name) my_fucked_layer_ ## name
@@ -109,6 +138,8 @@ COLO(Light_adjust
 , {7, 1, HSV_PURPLE}
 , {8, 1, HSV_CYAN}
 );
+COLO(Light_danger, {0, 9, HSV_RED});
+COLO(Light_mouse, {0, 9, HSV_BLUE});
 
 #undef COLO
 
@@ -116,6 +147,8 @@ COLO(Light_adjust
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 ( [Light_default] = COLO_IDENT(Light_default)
 , [Light_adjust]  = COLO_IDENT(Light_adjust)
+, [Light_danger]  = COLO_IDENT(Light_danger)
+, [Light_mouse]  = COLO_IDENT(Light_mouse)
 );
 
 #undef COLO_IDENT
@@ -132,7 +165,11 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, Layer_left_mod, Layer_right_mod, Layer_adjust);
+
     rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
+    rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
+    rgblight_set_layer_state(Light_mouse, layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
+
     return state;
 }
 
