@@ -148,7 +148,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 ( [Light_default] = COLO_IDENT(Light_default)
 , [Light_adjust]  = COLO_IDENT(Light_adjust)
 , [Light_danger]  = COLO_IDENT(Light_danger)
-, [Light_mouse]  = COLO_IDENT(Light_mouse)
+, [Light_mouse]   = COLO_IDENT(Light_mouse)
 );
 
 #undef COLO_IDENT
