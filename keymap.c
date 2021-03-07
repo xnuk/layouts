@@ -18,6 +18,10 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
+
 // float my_song[][2] = SONG(QWERTY_SOUND);
 
 __attribute__ ((weak))
@@ -29,6 +33,7 @@ enum preonic_layers
 , Layer_danger
 , Layer_mouse
 , Layer_wheel
+, Layer_music
 };
 
 // enum preonic_keycodes
@@ -72,13 +77,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , [Layer_adjust] = LAYOUT_ortho_5x12
 ( _                     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
 , KC_F1                 , KC_F2       , KC_F3                 , KC_F4             , KC_F5                , KC_F6    , KC_F7      , KC_F8                , KC_F9       , KC_F10      , KC_F11     , KC_F12
-, _                     , RGB_VAI     , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _        , _          , MO(Layer_danger)     , _           , _           , _          , _
+, _                     , _           , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _        , MU_ON      , MO(Layer_danger)     , _           , _           , _          , _
 , _                     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
 , TO(Layer_default)     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
 )
 
 , [Layer_danger] = LAYOUT_ortho_5x12
-( MAGIC_TOGGLE_NKRO   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , RESET
+( MAGIC_TOGGLE_NKRO   , DEBUG , _     , _      , _    , _      , _      , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
 , _                   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
 , _                   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
 , _                   , _     , _     , _      , _    , _      , _      , _       , _     , _      , _      , _
@@ -101,6 +106,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , _                   , _                , _                , _                 , _             , KC_MS_BTN1      , _               , _                   , _                 , _                   , _      , _
 )
 
+#undef _
+#define _ KC_NO
+
+, [Layer_music] = LAYOUT_ortho_5x12
+( _      , _              , _                   , _                  , _    , _      , _      , _       , _     , _      , _      , _
+, _      , _              , _                   , _                  , _    , _      , _      , _       , _     , _      , _      , _
+, _      , _              , _                   , _                  , _    , _      , _      , _       , _     , _      , _      , _
+, _      , _              , _                   , _                  , _    , _      , _      , _       , _     , _      , _      , _
+, MU_OFF , MU_MOD         , _                   , _                  , _    , _      , _      , _       , _     , _      , _      , _
+)
+
 };
 
 #undef _
@@ -116,6 +132,7 @@ enum preonic_rgb_layers
 , Light_adjust
 , Light_danger
 , Light_mouse
+, Light_music
 };
 
 #define COLO_IDENT(name) my_fucked_layer_ ## name
@@ -141,14 +158,26 @@ COLO(Light_adjust
 COLO(Light_danger, {0, 9, HSV_RED});
 COLO(Light_mouse, {0, 9, HSV_BLUE});
 
-#undef COLO
+COLO(Light_music
+, {0, 1, HSV_WHITE}
+, {1, 1, HSV_RED}
+, {2, 1, HSV_BLUE}
+, {3, 1, HSV_GREEN}
+, {4, 1, HSV_PURPLE}
+, {5, 1, HSV_CYAN}
+, {6, 1, HSV_YELLOW}
+, {7, 1, HSV_GREEN}
+, {8, 1, HSV_PURPLE}
+);
 
+#undef COLO
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 ( [Light_default] = COLO_IDENT(Light_default)
 , [Light_adjust]  = COLO_IDENT(Light_adjust)
 , [Light_danger]  = COLO_IDENT(Light_danger)
 , [Light_mouse]   = COLO_IDENT(Light_mouse)
+, [Light_music]   = COLO_IDENT(Light_music)
 );
 
 #undef COLO_IDENT
@@ -169,10 +198,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
     rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
     rgblight_set_layer_state(Light_mouse, layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
+    rgblight_set_layer_state(Light_music, layer_state_cmp(state, Layer_music));
 
     return state;
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	if (record->event.pressed) {
+		if (keycode == MU_ON) {
+			layer_move(Layer_music);
+			return true;
+		}
+
+		if (keycode == MU_OFF) {
+			layer_move(Layer_default);
+			return true;
+		}
+	}
+
+
+	return true;
+};
 /*
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
