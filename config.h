@@ -18,6 +18,9 @@ SONG(COLEMAK_SOUND), \
 SONG(DVORAK_SOUND) \
 }
 
+// Not allowing custom MUSIC_MAP setting quite sucks
+#define PITCH_STANDARD_A 220.0f
+
 #define AUDIO_ENABLE_TONE_MULTIPLEXING
 #define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 20
 #endif
