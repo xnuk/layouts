@@ -1,8 +1,9 @@
 # vim: sw=2
 
-name: build
+name: preonic-build
 
 on:
+  workflow_dispatch: {}
   push:
     branches:
     - preonic
