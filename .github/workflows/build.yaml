@@ -22,8 +22,8 @@ jobs:
 
     - uses: actions/checkout@v2
       with:
-        ref: 0c3bcdc8cda3fae11e823a783e182df4e55c9831
-        repository: xnuk/qmk_firmware
+        ref: e0614e4f52875f337668e9530ab3dcf7ce74c8cc
+        repository: qmk/qmk_firmware
         submodules: recursive
         path: ''
 
