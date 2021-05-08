@@ -40,6 +40,3 @@ jobs:
           preonic_rev3_xnuk.*
           .**/preonic_rev3_xnuk.*
           **/preonic_rev3_xnuk.*
-          /qmk_firmware/preonic_rev3_xnuk.*
-          /qmk_firmware/.**/preonic_rev3_xnuk.*
-          /qmk_firmware/**/preonic_rev3_xnuk.*
