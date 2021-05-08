@@ -36,4 +36,10 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: preonic_rev3_xnuk
-        path: preonic_rev3_xnuk.{bin,hex}
+        path: |
+          preonic_rev3_xnuk.*
+          .**/preonic_rev3_xnuk.*
+          **/preonic_rev3_xnuk.*
+          /qmk_firmware/preonic_rev3_xnuk.*
+          /qmk_firmware/.**/preonic_rev3_xnuk.*
+          /qmk_firmware/**/preonic_rev3_xnuk.*
