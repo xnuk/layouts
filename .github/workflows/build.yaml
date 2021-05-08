@@ -19,6 +19,7 @@ jobs:
     container: qmkfm/base_container
 
     steps:
+    - run: ls $QMK_HOME
 
     - uses: actions/checkout@v2
       with:
