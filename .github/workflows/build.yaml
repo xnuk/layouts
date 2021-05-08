@@ -19,11 +19,12 @@ jobs:
     container: qmkfm/base_container
 
     steps:
-    - run: ls $QMK_HOME
+    - run: printf '::set-output name=path::%s' "$QMK_HOME"
+      id: qmk-home
 
     - uses: actions/checkout@v2
       with:
-        ref: e0614e4f52875f337668e9530ab3dcf7ce74c8cc
+        ref: 067a6f017477938f965b1c4af4dace288d906730
         repository: qmk/qmk_firmware
         submodules: recursive
         path: ''
@@ -38,4 +39,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: preonic_rev3_xnuk
-        path: .build/preonic_rev3_xnuk.{bin,hex}
+        path: ${{ steps.qmk-home.outputs.path }}/.build/preonic_rev3_xnuk.{bin,hex}
