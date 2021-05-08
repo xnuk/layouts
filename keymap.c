@@ -220,9 +220,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-	if (clockwise) {
-		tap_code(KC_AUDIO_VOL_UP);
-	} else {
-		tap_code(KC_AUDIO_VOL_DOWN);
+#ifdef CONSOLE_ENABLE
+	dprintf("encoder: %d %d\n", index, clockwise);
+#endif
+
+	if (index == 0) {
+		if (clockwise) {
+			tap_code_delay(KC_AUDIO_VOL_UP, 80);
+		} else {
+			tap_code_delay(KC_AUDIO_VOL_DOWN, 80);
+		}
 	}
 }
