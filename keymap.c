@@ -51,7 +51,7 @@ enum preonic_layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 { [Layer_default] = LAYOUT_ortho_5x12
-( KC_GRAVE         , KC_1      , KC_2      , KC_3      , KC_4                          , KC_5     , KC_6     , KC_7                           , KC_8                      , KC_9      , KC_0      , KC_BSPACE
+( KC_AUDIO_MUTE    , KC_1      , KC_2      , KC_3      , KC_4                          , KC_5     , KC_6     , KC_7                           , KC_8                      , KC_9      , KC_0      , KC_BSPACE
 , LALT_T(KC_TAB)   , KC_Q      , KC_W      , KC_F      , KC_P                          , KC_B     , KC_J     , KC_L                           , KC_U                      , KC_Y      , KC_SCLN   , KC_BSPACE
 , LCTL_T(KC_ESC)   , KC_A      , KC_R      , KC_S      , KC_T                          , KC_G     , KC_M     , KC_N                           , KC_E                      , KC_I      , KC_O      , KC_MINS
 , KC_LSPO          , KC_Z      , KC_X      , KC_C      , KC_D                          , KC_V     , KC_K     , KC_H                           , KC_COMMA                  , KC_DOT    , KC_SLASH  , KC_ENTER
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 )
 
 , [Layer_right_mod] = LAYOUT_ortho_5x12
-( KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_F5      , KC_F6    , KC_F7      , KC_F8      , KC_F9      , KC_F10    , KC_F11     , KC_F12
+( _        , _        , _        , _        , _          , _        , _          , _          , _          , _         , _          , _
 , _        , KC_1     , KC_2     , KC_3     , KC_4       , KC_5     , KC_6       , KC_7       , KC_8       , KC_9      , KC_0       , KC_DEL
 , _        , KC_4     , KC_5     , KC_6     , KC_CIRC    , _        , KC_HOME    , KC_LEFT    , KC_DOWN    , KC_UP     , KC_RGHT    , KC_END
 , _        , KC_7     , KC_8     , KC_9     , KC_0       , _        , _          , KC_PGUP    , _          , _         , KC_PGDN    , _
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , [Layer_adjust] = LAYOUT_ortho_5x12
 ( _                     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
 , KC_F1                 , KC_F2       , KC_F3                 , KC_F4             , KC_F5                , KC_F6    , KC_F7      , KC_F8                , KC_F9       , KC_F10      , KC_F11     , KC_F12
-, _                     , _           , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _        , MU_ON      , MO(Layer_danger)     , _           , _           , _          , _
+, _                     , KC_MEDIA_PLAY_PAUSE , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _        , MU_ON      , MO(Layer_danger)     , _           , _           , _          , _
 , _                     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
 , TO(Layer_default)     , _           , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
 )
@@ -226,9 +226,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 	if (index == 0) {
 		if (clockwise) {
-			tap_code_delay(KC_AUDIO_VOL_UP, 80);
+			tap_code_delay(KC_AUDIO_VOL_UP, 50);
 		} else {
-			tap_code_delay(KC_AUDIO_VOL_DOWN, 80);
+			tap_code_delay(KC_AUDIO_VOL_DOWN, 50);
 		}
 	}
 }
