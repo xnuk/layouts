@@ -1,15 +1,22 @@
 daemon:
-  modules: []
+  modules:
+  - Wayland
+  - Indicator
+
+indicator:
+  icon_color: White
+
 engine:
   default_category: Latin
   global_category_state: true
   global_hotkeys:
-    Hangul:
+    Hangul: &toggle
       behavior:
         Toggle:
         - Hangul
         - Latin
       result: Consume
+    AltR: *toggle
     S-Space:
       behavior:
         Switch: Hangul
@@ -31,4 +38,3 @@ engine:
       - ComposeChoseongSsang
       - ComposeJongseongSsang
       - ComposeJungseongSsang
-
