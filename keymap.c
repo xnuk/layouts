@@ -229,7 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
 #ifdef CONSOLE_ENABLE
 	dprintf("encoder: %d %d\n", index, clockwise);
 #endif
@@ -241,4 +241,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 			tap_code_delay(KC_AUDIO_VOL_DOWN, 50);
 		}
 	}
+
+	// If you return true, this will allow the keyboard level code to run
+	return false;
 }
