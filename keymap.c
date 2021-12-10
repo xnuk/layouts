@@ -147,7 +147,7 @@ enum preonic_rgb_layers
 };
 
 #define COLO_IDENT(name) my_fucked_layer_ ## name
-#define COLO(name, ...) __attribute__ ((weak)) const rgblight_segment_t PROGMEM COLO_IDENT(name) [] = RGBLIGHT_LAYER_SEGMENTS(__VA_ARGS__)
+#define COLO(name, ...) __attribute__ ((weak)) const rgblight_segment_t PROGMEM COLO_IDENT(name) [] = RGBLIGHT_LAYER_SEGMENTS(__VA_ARGS__);
 
 /*
 	6    5       4    3
@@ -181,7 +181,7 @@ COLO(Light_music
 , {8, 1, HSV_PURPLE}
 );
 
-COLO(Light_qwerty, {3, 6, HSV_ORANGE})
+COLO(Light_qwerty, {3, 6, HSV_ORANGE});
 
 #undef COLO
 
