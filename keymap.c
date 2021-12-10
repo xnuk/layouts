@@ -22,10 +22,6 @@
 #include "print.h"
 #endif
 
-#ifdef AUDIO_ENABLE
-#define STARTUP_SONG(STARTUP_SOUND)
-#endif
-
 // float my_song[][2] = SONG(QWERTY_SOUND);
 
 __attribute__ ((weak))
