@@ -238,7 +238,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			return true;
 		}
 
-		if (keycode == TO(Layer_colemak)) {
+		if (keycode == TO(Layer_default)) {
 			PLAY_SONG(colemak_song);
 			return true;
 		}
