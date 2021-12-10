@@ -236,12 +236,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		if (keycode == TO(Layer_qwerty)) {
 			layer_move(Layer_qwerty);
 			PLAY_SONG(qwerty_song);
+
+#ifdef CONSOLE_ENABLE
+	dprintf("layer to: qwerty\n");
+#endif
+
 			return true;
 		}
 
 		if (keycode == TO(Layer_default)) {
 			layer_move(Layer_default);
 			PLAY_SONG(colemak_song);
+
+
+#ifdef CONSOLE_ENABLE
+	dprintf("layer to: default\n");
+#endif
+
 			return true;
 		}
 	}
