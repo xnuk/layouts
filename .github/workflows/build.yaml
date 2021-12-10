@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: 067a6f017477938f965b1c4af4dace288d906730
+        ref: 80708c64a1b258f39346083cfb81b930a501499c
         repository: qmk/qmk_firmware
         submodules: recursive
         path: ''
