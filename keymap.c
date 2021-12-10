@@ -181,7 +181,7 @@ COLO(Light_music
 , {8, 1, HSV_PURPLE}
 );
 
-COLO(Light_qwerty, {3, 6, HSV_ORANGE});
+COLO(Light_qwerty, {0, 9, HSV_ORANGE});
 
 #undef COLO
 
@@ -234,11 +234,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 
 		if (keycode == TO(Layer_qwerty)) {
+			layer_move(Layer_qwerty);
 			PLAY_SONG(qwerty_song);
 			return true;
 		}
 
 		if (keycode == TO(Layer_default)) {
+			layer_move(Layer_default);
 			PLAY_SONG(colemak_song);
 			return true;
 		}
