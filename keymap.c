@@ -84,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 )
 
 , [Layer_danger] = LAYOUT_ortho_5x12
-( MAGIC_TOGGLE_NKRO   , DEBUG         , _     , _      , _    , _      , _      , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
-, _                   , _             , _     , _      , _    , _      , _      , _                , _     , _      , _      , _
-, _                   , _             , _     , _      , _    , _      , _      , _                , _     , _      , _      , _
-, _                   , _             , _     , _      , _    , _      , _      , _                , _     , _      , _      , _
-, TO(Layer_default)   , _             , _     , _      , _    , _      , _      , _                , _     , _      , _      , _
+( MAGIC_TOGGLE_NKRO   , DEBUG                 , _     , _                   , _    , _      , _                    , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
+, _                   , TO(Layer_qwerty)      , _     , _                   , _    , _      , _                    , _                , _     , _      , _      , _
+, _                   , _                     , _     , _                   , _    , _      , MU_ON                , _                , _     , _      , _      , _
+, _                   , _                     , _     , TO(Layer_default)   , _    , _      , _                    , _                , _     , _      , _      , _
+, TO(Layer_default)   , _                     , _     , _                   , _    , _      , _                    , _                , _     , _      , _      , _
 )
 
 , [Layer_mouse] = LAYOUT_ortho_5x12
@@ -143,6 +143,7 @@ enum preonic_rgb_layers
 , Light_danger
 , Light_mouse
 , Light_music
+, Light_qwerty
 };
 
 #define COLO_IDENT(name) my_fucked_layer_ ## name
@@ -180,6 +181,8 @@ COLO(Light_music
 , {8, 1, HSV_PURPLE}
 );
 
+COLO(Light_qwerty, {3, 6, HSV_ORANGE})
+
 #undef COLO
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
@@ -188,6 +191,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 , [Light_danger]  = COLO_IDENT(Light_danger)
 , [Light_mouse]   = COLO_IDENT(Light_mouse)
 , [Light_music]   = COLO_IDENT(Light_music)
+, [Light_qwerty]  = COLO_IDENT(Light_qwerty)
 );
 
 #undef COLO_IDENT
@@ -207,11 +211,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
     rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
-    rgblight_set_layer_state(Light_mouse, layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
-    rgblight_set_layer_state(Light_music, layer_state_cmp(state, Layer_music));
+    rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
+    rgblight_set_layer_state(Light_music,  layer_state_cmp(state, Layer_music));
+	rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
 
     return state;
 }
+
+float qwerty_song[][2] = SONG(QWERTY_SOUND);
+float colemak_song[][2] = SONG(COLEMAK_SOUND);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
@@ -222,6 +230,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 		if (keycode == MU_OFF) {
 			layer_move(Layer_default);
+			return true;
+		}
+
+		if (keycode == TO(Layer_qwerty)) {
+			PLAY_SONG(qwerty_song);
+			return true;
+		}
+
+		if (keycode == TO(Layer_colemak)) {
+			PLAY_SONG(colemak_song);
 			return true;
 		}
 	}
