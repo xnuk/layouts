@@ -181,7 +181,7 @@ COLO(Light_music
 , {8, 1, HSV_PURPLE}
 );
 
-COLO(Light_qwerty, {0, 9, HSV_ORANGE});
+COLO(Light_qwerty, {0, 9, HSV_GREEN});
 
 #undef COLO
 
@@ -213,7 +213,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
     rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
     rgblight_set_layer_state(Light_music,  layer_state_cmp(state, Layer_music));
-	//rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
+	rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
 
     return state;
 }
@@ -234,23 +234,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		}
 
 		if (keycode == TO(Layer_qwerty)) {
-			//PLAY_SONG(qwerty_song);
-
-#ifdef CONSOLE_ENABLE
-	dprintf("layer to: qwerty\n");
-#endif
-
+			PLAY_SONG(qwerty_song);
 			return true;
 		}
 
 		if (keycode == TO(Layer_default)) {
 			PLAY_SONG(colemak_song);
-
-
-#ifdef CONSOLE_ENABLE
-	dprintf("layer to: default\n");
-#endif
-
 			return true;
 		}
 	}
