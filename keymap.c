@@ -27,6 +27,7 @@
 __attribute__ ((weak))
 enum preonic_layers
 { Layer_default
+, Layer_game
 , Layer_qwerty
 , Layer_left_mod
 , Layer_right_mod
@@ -59,12 +60,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , ALL_T(KC_BSLS)   , KC_LALT   , KC_LCTRL  , KC_LGUI   , LT(Layer_left_mod,KC_RIGHT)   , KC_SPC   , KC_SPC   , LT(Layer_right_mod,KC_HAEN)    , LT(Layer_mouse,KC_LEFT)   , KC_DOWN   , KC_UP     , KC_RIGHT
 )
 
+, [Layer_game] = LAYOUT_ortho_5x12
+( TO(Layer_default)    , KC_1      , KC_2      , KC_3      , KC_4    , KC_5     , KC_6     , KC_7    , KC_8      , KC_9     , KC_0      , TO(Layer_default)
+, KC_TAB               , KC_Q      , KC_W      , KC_F      , KC_P    , KC_B     , KC_J     , KC_L    , KC_U      , KC_Y     , KC_SCLN   , KC_BSPACE
+, KC_ESC               , KC_A      , KC_R      , KC_S      , KC_T    , KC_G     , KC_M     , KC_N    , KC_E      , KC_I     , KC_O      , KC_MINS
+, KC_LSFT              , KC_Z      , KC_X      , KC_C      , KC_D    , KC_V     , KC_K     , KC_H    , KC_COMMA  , KC_DOT   , KC_SLASH  , KC_ENTER
+, KC_LGUI              , KC_LALT   , KC_LCTRL  , KC_BSLS   , KC_LSFT , KC_SPC   , KC_LBRC  , KC_RSFT , KC_LEFT   , KC_DOWN  , KC_UP     , KC_RIGHT
+)
+
 , [Layer_qwerty] = LAYOUT_ortho_5x12
 ( KC_AUDIO_MUTE    , KC_1      , KC_2      , KC_3      , KC_4                          , KC_5     , KC_6     , KC_7                           , KC_8                      , KC_9      , KC_0      , KC_BSPACE
 , LALT_T(KC_TAB)   , KC_Q      , KC_W      , KC_E      , KC_R                          , KC_T     , KC_Y     , KC_U                           , KC_I                      , KC_O      , KC_P      , KC_BSPACE
 , LCTL_T(KC_ESC)   , KC_A      , KC_S      , KC_D      , KC_F                          , KC_G     , KC_H     , KC_J                           , KC_K                      , KC_L      , KC_SCLN   , KC_MINS
-, _                , KC_Z      , KC_X      , KC_C      , KC_V                          , KC_B     , KC_N     , KC_M                           , KC_COMMA                  , KC_DOT    , KC_SLASH  , KC_ENTER
-, ALL_T(KC_BSLS)   , _         , _         , _         , _                             , KC_SPC   , KC_SPC   , _                              , _                         , _         , _         , _
+, KC_LSPO          , KC_Z      , KC_X      , KC_C      , KC_V                          , KC_B     , KC_N     , KC_M                           , KC_COMMA                  , KC_DOT    , KC_SLASH  , KC_ENTER
+, ALL_T(KC_BSLS)   , KC_LALT   , KC_LCTRL  , KC_LGUI   , LT(Layer_left_mod,KC_RIGHT)   , KC_SPC   , KC_SPC   , LT(Layer_right_mod,KC_HAEN)    , LT(Layer_mouse,KC_LEFT)   , KC_DOWN   , KC_UP     , KC_RIGHT
 )
 
 , [Layer_left_mod] = LAYOUT_ortho_5x12
@@ -92,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 )
 
 , [Layer_danger] = LAYOUT_ortho_5x12
-( MAGIC_TOGGLE_NKRO   , DEBUG                 , _     , _                   , _    , _      , _                    , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
-, _                   , TO(Layer_qwerty)      , _     , _                   , _    , _      , _                    , _                , _     , _      , _      , _
-, _                   , _                     , _     , _                   , _    , _      , MU_ON                , _                , _     , _      , _      , _
-, _                   , _                     , _     , TO(Layer_default)   , _    , _      , _                    , _                , _     , _      , _      , _
-, TO(Layer_default)   , _                     , _     , _                   , _    , _      , _                    , _                , _     , _      , _      , _
+( MAGIC_TOGGLE_NKRO   , DEBUG                 , _     , _                   , _    , _                   , _                    , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
+, _                   , TO(Layer_qwerty)      , _     , _                   , _    , _                   , _                    , _                , _     , _      , _      , _
+, _                   , _                     , _     , _                   , _    , TO(Layer_game)      , MU_ON                , _                , _     , _      , _      , _
+, _                   , _                     , _     , TO(Layer_default)   , _    , _                   , _                    , _                , _     , _      , _      , _
+, TO(Layer_default)   , _                     , _     , _                   , _    , _                   , _                    , _                , _     , _      , _      , _
 )
 
 , [Layer_mouse] = LAYOUT_ortho_5x12
@@ -144,6 +153,7 @@ enum preonic_rgb_layers
 , Light_mouse
 , Light_music
 , Light_qwerty
+, Light_game
 };
 
 #define COLO_IDENT(name) my_fucked_layer_ ## name
@@ -183,6 +193,17 @@ COLO(Light_music
 
 COLO(Light_qwerty, {0, 9, HSV_GREEN});
 
+COLO(Light_game
+, {1, 1, HSV_GREEN}
+, {2, 1, HSV_CYAN}
+, {3, 1, HSV_GREEN}
+, {4, 1, HSV_CYAN}
+, {5, 1, HSV_GREEN}
+, {6, 1, HSV_CYAN}
+, {7, 1, HSV_GREEN}
+, {8, 1, HSV_CYAN}
+);
+
 #undef COLO
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
@@ -214,12 +235,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
     rgblight_set_layer_state(Light_music,  layer_state_cmp(state, Layer_music));
 	rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
+	rgblight_set_layer_state(Light_game, layer_state_cmp(state, Layer_game));
 
     return state;
 }
 
 float qwerty_song[][2] = SONG(QWERTY_SOUND);
 float colemak_song[][2] = SONG(COLEMAK_SOUND);
+float clueboard_song[][2] = SONG(CLUEBOARD_SOUND);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
@@ -240,6 +263,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 		if (keycode == TO(Layer_default)) {
 			PLAY_SONG(colemak_song);
+			return true;
+		}
+
+		if (keycode == TO(Layer_game)) {
+			PLAY_SONG(clueboard_song);
 			return true;
 		}
 	}
