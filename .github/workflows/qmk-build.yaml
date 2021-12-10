@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
 
     steps:
     - uses: actions/checkout@v2
@@ -31,7 +31,7 @@ jobs:
         path: keyboards/preonic/keymaps/xnuk
 
     - run: pip3 install --user -r requirements.txt
-    - run: bin/qmk compile -kb preonic/rev3 -km xnuk
+    - run: qmk compile -kb preonic/rev3 -km xnuk
 
     - uses: actions/upload-artifact@v2
       with:
