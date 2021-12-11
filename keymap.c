@@ -228,16 +228,16 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, Layer_left_mod, Layer_right_mod, Layer_adjust);
+	state = update_tri_layer_state(state, Layer_left_mod, Layer_right_mod, Layer_adjust);
 
-    rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
-    rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
-    rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
-    rgblight_set_layer_state(Light_music,  layer_state_cmp(state, Layer_music));
+	rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
+	rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
+	rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
+	rgblight_set_layer_state(Light_music,  layer_state_cmp(state, Layer_music));
 	rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
 	rgblight_set_layer_state(Light_game, layer_state_cmp(state, Layer_game));
 
-    return state;
+	return state;
 }
 
 float qwerty_song[][2] = SONG(QWERTY_SOUND);
