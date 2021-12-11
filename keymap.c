@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 ( MAGIC_TOGGLE_NKRO   , DEBUG                 , _     , _                   , _    , _                   , _                    , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
 , _                   , TO(Layer_qwerty)      , _     , _                   , _    , _                   , _                    , _                , _     , _      , _      , _
 , _                   , _                     , _     , _                   , _    , TO(Layer_game)      , MU_ON                , _                , _     , _      , _      , _
-, _                   , _                     , _     , TO(Layer_default)   , _    , _                   , _                    , _                , _     , _      , _      , _
+, _                   , _                     , _     , TO(Layer_default)   , _    , _                   , CK_TOGG              , _                , _     , _      , _      , _
 , TO(Layer_default)   , _                     , _     , _                   , _    , _                   , _                    , _                , _     , _      , _      , _
 )
 
