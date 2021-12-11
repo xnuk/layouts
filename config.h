@@ -12,7 +12,9 @@ fuck this shit imma out;
 #ifdef AUDIO_ENABLE
 #define STARTUP_SONG SONG(PREONIC_SOUND)
 
-#define AUDIO_CLICKY
+// #define AUDIO_CLICKY
+// #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.5f
+// #define AUDIO_CLICKY_FREQ_MIN 70.0f
 
 /*
 #define DEFAULT_LAYER_SONGS { \
