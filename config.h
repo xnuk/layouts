@@ -5,10 +5,19 @@ fuck this shit imma out;
 #endif
 
 #ifndef CONSOLE_ENABLE
+
+#ifndef NO_DEBUG
 #define NO_DEBUG
+#endif
+
+#ifndef NO_PRINT
 #define NO_PRINT
+#endif
+
 #else
+
 #define DEBUG_MATRIX_SCAN_RATE
+
 #endif
 
 #ifdef AUDIO_ENABLE
