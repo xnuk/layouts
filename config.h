@@ -84,3 +84,5 @@ SONG(DVORAK_SOUND) \
 #undef DEBOUNCE
 #endif
 #define DEBOUNCE 0
+
+#define USB_POLLING_INTERVAL_MS 1
