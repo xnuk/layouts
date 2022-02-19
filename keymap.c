@@ -291,3 +291,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	// If you return true, this will allow the keyboard level code to run
 	return false;
 }
+
+// from: https://github.com/byungyoonc/qmk_firmware/blob/d5579b1a5384e664f58b2b78f902031f7e24b36e/keyboards/gmmk/pro/ansi/keymaps/byungyoonc/keymap.c#L125
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+	for (int i = 0; i < 20; i++) {
+		wait_cpuclock(STM32_SYSCLK / 1000000L);
+	}
+}
