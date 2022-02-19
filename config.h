@@ -7,6 +7,8 @@ fuck this shit imma out;
 #ifndef CONSOLE_ENABLE
 #define NO_DEBUG
 #define NO_PRINT
+#else
+#define DEBUG_MATRIX_SCAN_RATE
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -81,5 +83,3 @@ SONG(DVORAK_SOUND) \
 #define MOUSEKEY_WHEEL_INTERVAL 100
 
 #define USB_POLLING_INTERVAL_MS 1
-
-#define DEBUG_MATRIX_SCAN_RATE
