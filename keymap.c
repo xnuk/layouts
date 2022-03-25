@@ -93,11 +93,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 )
 
 , [Layer_adjust] = LAYOUT_ortho_5x12
-( _                     , _                   , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
-, KC_F1                 , KC_F2               , KC_F3                 , KC_F4             , KC_F5                , KC_F6    , KC_F7      , KC_F8                , KC_F9       , KC_F10      , KC_F11     , KC_F12
-, _                     , KC_MEDIA_PLAY_PAUSE , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _        , MU_ON      , MO(Layer_danger)     , _           , _           , _          , _
-, _                     , _                   , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
-, TO(Layer_default)     , _                   , _                     , _                 , _                    , _        , _          , _                    , _           , _           , _          , _
+( _                     , _                   , _                     , _                 , _                    , _                            , _          , _                    , _           , _           , _          , _
+, KC_F1                 , KC_F2               , KC_F3                 , KC_F4             , KC_F5                , KC_F6                        , KC_F7      , KC_F8                , KC_F9       , KC_F10      , KC_F11     , KC_F12
+, _                     , KC_MEDIA_PLAY_PAUSE , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _                            , MU_ON      , MO(Layer_danger)     , _           , _           , _          , _
+, _                     , _                   , _                     , _                 , _                    , LCTL(LSFT(KC_INSERT))        , _          , _                    , _           , _           , _          , _
+, TO(Layer_default)     , _                   , _                     , _                 , _                    , _                            , _          , _                    , _           , _           , _          , _
 )
 
 , [Layer_danger] = LAYOUT_ortho_5x12
