@@ -10,7 +10,7 @@ on:
     - '*.c'
     - '*.h'
     - '*.mk'
-    - .github/workflows/build.yaml
+    - .github/workflows/qmk-build.yaml
 
 jobs:
   build:
