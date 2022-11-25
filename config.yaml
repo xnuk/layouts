@@ -11,10 +11,7 @@ engine:
   global_category_state: true
   global_hotkeys:
     Hangul: &toggle
-      behavior:
-        Toggle:
-        - Hangul
-        - Latin
+      behavior: !Toggle [Hangul, Latin]
       result: Consume
     AltR: *toggle
     S-Space:
