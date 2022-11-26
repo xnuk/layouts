@@ -15,12 +15,10 @@ engine:
       result: Consume
     AltR: *toggle
     S-Space:
-      behavior:
-        Switch: Hangul
+      behavior: !Switch Hangul
       result: ConsumeIfProcessed
     Esc:
-      behavior:
-        Switch: Latin
+      behavior: !Switch Latin
       result: Bypass
   category_hotkeys: {}
   mode_hotkeys: {}
