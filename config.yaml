@@ -14,14 +14,10 @@ engine:
       behavior: !Toggle [Hangul, Latin]
       result: Consume
     AltR: *toggle
-    S-Space:
-      behavior: !Switch Hangul
-      result: ConsumeIfProcessed
     Esc:
       behavior: !Switch Latin
       result: Bypass
-  category_hotkeys: {}
-  mode_hotkeys: {}
+
   latin:
     preferred_direct: true
 
