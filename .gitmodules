@@ -1,4 +1,0 @@
-[submodule "kime"]
-	path = kime
-	url = git@github.com:Riey/kime.git
-	branch = v2.5.5
