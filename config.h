@@ -41,6 +41,10 @@ SONG(DVORAK_SOUND) \
 #endif
 
 #define MUSIC_MASK (keycode != KC_NO)
+#define NO_MUSIC_MODE
+#ifdef AUDIO_CLICKY
+#undef AUDIO_CLICKY
+#endif
 
 #define MIDI_BASIC
 
