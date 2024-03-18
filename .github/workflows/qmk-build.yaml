@@ -35,7 +35,7 @@ jobs:
     - run: pip3 install --user -r requirements.txt
     - run: make preonic/rev3:xnuk
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: preonic_rev3_xnuk
         path: |
