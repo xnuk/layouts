@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/qmk/qmk_cli:1.1.5
+    container: ghcr.io/qmk/qmk_cli@sha256:2e7c6d690faa390bdff324a75a62201fad7666bb21f2905ca431525ddfab8798
 
     steps:
     - uses: actions/checkout@v3
