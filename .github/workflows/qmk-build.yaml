@@ -15,7 +15,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: ghcr.io/qmk/qmk_cli@sha256:2e7c6d690faa390bdff324a75a62201fad7666bb21f2905ca431525ddfab8798
+
+    # Made an issue for pinning this stuff
+    # https://github.com/qmk/qmk_cli/issues/173
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - uses: actions/checkout@v3
