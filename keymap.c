@@ -35,7 +35,6 @@ enum preonic_layers
 , Layer_danger
 , Layer_mouse
 , Layer_wheel
-, Layer_music
 };
 
 // enum preonic_keycodes
@@ -103,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , [Layer_danger] = LAYOUT_ortho_5x12
 ( MAGIC_TOGGLE_NKRO   , DEBUG                 , _     , _                   , _    , _                   , _                    , KC_SYSTEM_SLEEP  , _     , _      , _      , RESET
 , _                   , TO(Layer_qwerty)      , _     , _                   , _    , _                   , _                    , _                , _     , _      , _      , _
-, _                   , _                     , _     , _                   , _    , TO(Layer_game)      , MU_ON                , _                , _     , _      , _      , _
+, _                   , _                     , _     , _                   , _    , TO(Layer_game)      , _                    , _                , _     , _      , _      , _
 , _                   , _                     , _     , TO(Layer_default)   , _    , _                   , CK_TOGG              , _                , _     , _      , _      , _
 , TO(Layer_default)   , _                     , _     , _                   , _    , _                   , _                    , _                , _     , _      , _      , _
 )
@@ -122,18 +121,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , _                   , KC_MS_ACCEL2     , KC_MS_ACCEL1     , KC_MS_ACCEL0      , _             , KC_MS_BTN3      , KC_MS_BTN3      , KC_MS_WH_LEFT       , KC_MS_WH_DOWN     , KC_MS_WH_RIGHT      , _      , KC_MS_BTN2
 , _                   , _                , _                , _                 , _             , _               , _               , _                   , _                 , _                   , _      , _
 , _                   , _                , _                , _                 , _             , KC_MS_BTN1      , _               , _                   , _                 , _                   , _      , _
-)
-
-
-#undef _
-#define _ KC_NO
-
-, [Layer_music] = LAYOUT_ortho_5x12
-( _  , _   , _  , _  , _  , _  , _  , _  , _  , _  , MU_MOD , MU_OFF
-, _  , _   , _  , _  , _  , _  , _  , _  , _  , _  , _      , _
-, _  , _   , _  , _  , _  , _  , _  , _  , _  , _  , _      , _
-, _  , _   , _  , _  , _  , _  , _  , _  , _  , _  , _      , _
-, _  , _   , _  , _  , _  , _  , _  , _  , _  , _  , _      , _
 )
 
 };
