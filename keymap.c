@@ -17,10 +17,6 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef AUDIO_ENABLE
-#include "muse.h"
-#endif
-
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif
@@ -97,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 , [Layer_adjust] = LAYOUT_ortho_5x12
 ( _                     , _                   , _                     , _                 , _                    , _                            , _          , _                    , _           , _           , _          , _
 , KC_F1                 , KC_F2               , KC_F3                 , KC_F4             , KC_F5                , KC_F6                        , KC_F7      , KC_F8                , KC_F9       , KC_F10      , KC_F11     , KC_F12
-, _                     , KC_MEDIA_PLAY_PAUSE , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _                            , MU_ON      , MO(Layer_danger)     , _           , _           , _          , _
+, _                     , KC_MEDIA_PLAY_PAUSE , KC_AUDIO_VOL_DOWN     , KC_AUDIO_VOL_UP   , MO(Layer_danger)     , _                            , _          , MO(Layer_danger)     , _           , _           , _          , _
 , _                     , _                   , _                     , _                 , _                    , LCTL(LSFT(KC_INSERT))        , _          , _                    , _           , _           , _          , _
 , TO(Layer_default)     , _                   , _                     , _                 , _                    , _                            , _          , _                    , _           , _           , _          , _
 )
@@ -141,7 +137,6 @@ enum preonic_rgb_layers
 , Light_adjust
 , Light_danger
 , Light_mouse
-, Light_music
 , Light_qwerty
 , Light_game
 };
@@ -169,18 +164,6 @@ COLO(Light_adjust
 COLO(Light_danger, {0, 9, HSV_RED});
 COLO(Light_mouse, {0, 9, HSV_BLUE});
 
-COLO(Light_music
-, {0, 1, HSV_WHITE}
-, {1, 1, HSV_RED}
-, {2, 1, HSV_BLUE}
-, {3, 1, HSV_GREEN}
-, {4, 1, HSV_PURPLE}
-, {5, 1, HSV_CYAN}
-, {6, 1, HSV_YELLOW}
-, {7, 1, HSV_GREEN}
-, {8, 1, HSV_PURPLE}
-);
-
 COLO(Light_qwerty, {0, 9, HSV_GREEN});
 
 COLO(Light_game
@@ -201,7 +184,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 , [Light_adjust]  = COLO_IDENT(Light_adjust)
 , [Light_danger]  = COLO_IDENT(Light_danger)
 , [Light_mouse]   = COLO_IDENT(Light_mouse)
-, [Light_music]   = COLO_IDENT(Light_music)
 , [Light_qwerty]  = COLO_IDENT(Light_qwerty)
 );
 
@@ -223,7 +205,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
 	rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
 	rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
-	rgblight_set_layer_state(Light_music,  layer_state_cmp(state, Layer_music));
 	rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
 	rgblight_set_layer_state(Light_game, layer_state_cmp(state, Layer_game));
 
@@ -236,16 +217,6 @@ float clueboard_song[][2] = SONG(CLUEBOARD_SOUND);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
-		if (keycode == MU_ON) {
-			layer_move(Layer_music);
-			return true;
-		}
-
-		if (keycode == MU_OFF) {
-			layer_move(Layer_default);
-			return true;
-		}
-
 		if (keycode == TO(Layer_qwerty)) {
 			PLAY_SONG(qwerty_song);
 			return true;
