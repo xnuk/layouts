@@ -135,9 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 __attribute__ ((weak))
 enum preonic_rgb_layers
 { Light_default
-, Light_adjust
 , Light_danger
-, Light_mouse
 , Light_qwerty
 , Light_game
 };
@@ -152,39 +150,15 @@ enum preonic_rgb_layers
 */
 
 COLO(Light_default, {0, 9, HSV_OFF});
-COLO(Light_adjust
-, {1, 1, HSV_PURPLE}
-, {2, 1, HSV_CYAN}
-, {3, 1, HSV_PURPLE}
-, {4, 1, HSV_CYAN}
-, {5, 1, HSV_PURPLE}
-, {6, 1, HSV_CYAN}
-, {7, 1, HSV_PURPLE}
-, {8, 1, HSV_CYAN}
-);
-COLO(Light_danger, {0, 9, HSV_RED});
-COLO(Light_mouse, {0, 9, HSV_BLUE});
-
-COLO(Light_qwerty, {0, 9, HSV_GREEN});
-
-COLO(Light_game
-, {1, 1, HSV_GREEN}
-, {2, 1, HSV_CYAN}
-, {3, 1, HSV_GREEN}
-, {4, 1, HSV_CYAN}
-, {5, 1, HSV_GREEN}
-, {6, 1, HSV_CYAN}
-, {7, 1, HSV_GREEN}
-, {8, 1, HSV_CYAN}
-);
+COLO(Light_danger, {3, 4, HSV_RED});
+COLO(Light_qwerty, {3, 4, HSV_GREEN});
+COLO(Light_game, {2, 4, HSV_BLUE});
 
 #undef COLO
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 ( [Light_default] = COLO_IDENT(Light_default)
-, [Light_adjust]  = COLO_IDENT(Light_adjust)
 , [Light_danger]  = COLO_IDENT(Light_danger)
-, [Light_mouse]   = COLO_IDENT(Light_mouse)
 , [Light_qwerty]  = COLO_IDENT(Light_qwerty)
 );
 
@@ -203,9 +177,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 layer_state_t layer_state_set_user(layer_state_t state) {
 	state = update_tri_layer_state(state, Layer_left_mod, Layer_right_mod, Layer_adjust);
 
-	rgblight_set_layer_state(Light_adjust, layer_state_cmp(state, Layer_adjust));
 	rgblight_set_layer_state(Light_danger, layer_state_cmp(state, Layer_danger));
-	rgblight_set_layer_state(Light_mouse,  layer_state_cmp(state, Layer_mouse) || layer_state_cmp(state, Layer_wheel));
 	rgblight_set_layer_state(Light_qwerty, layer_state_cmp(state, Layer_qwerty));
 	rgblight_set_layer_state(Light_game, layer_state_cmp(state, Layer_game));
 
