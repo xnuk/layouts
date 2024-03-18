@@ -29,7 +29,7 @@ jobs:
         path: keyboards/preonic/keymaps/xnuk
 
     - run: pip3 install --user -r requirements.txt
-    - run: qmk compile -kb preonic/rev3 -km xnuk
+    - run: make preonic/rev3:xnuk
 
     - uses: actions/upload-artifact@v3
       with:
