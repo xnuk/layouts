@@ -21,14 +21,14 @@ jobs:
     container: ghcr.io/qmk/qmk_cli
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         ref: c5f544cd9696eb607e88b921d3fc31959ada914a
         repository: qmk/qmk_firmware
         submodules: recursive
         path: ''
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: keyboards/preonic/keymaps/xnuk
 
