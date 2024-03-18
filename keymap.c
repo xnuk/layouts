@@ -22,8 +22,6 @@
 #include "print.h"
 #endif
 
-// float my_song[][2] = SONG(QWERTY_SOUND);
-
 __attribute__ ((weak))
 enum preonic_layers
 { Layer_default
@@ -184,9 +182,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	return state;
 }
 
-float qwerty_song[][2] = SONG(QWERTY_SOUND);
+/* modified order from original QWERTY_SOUND */
+float qwerty_song[][2] = SONG(
+	E__NOTE(_E7), E__NOTE(_GS6), S__NOTE(_REST), Q__NOTE(_A6)
+);
+
 float colemak_song[][2] = SONG(COLEMAK_SOUND);
-float clueboard_song[][2] = SONG(CLUEBOARD_SOUND);
+float clueboard_song[][2] = SONG(GUITAR_SOUND);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
