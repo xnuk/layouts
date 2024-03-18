@@ -16,6 +16,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "muse.h"
 
 #ifdef CONSOLE_ENABLE
 #include "print.h"
