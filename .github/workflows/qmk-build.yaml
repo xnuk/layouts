@@ -37,8 +37,12 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: preonic_rev3_xnuk
+        name: preonic_rev3_xnuk.bin
+        path: preonic_rev3_xnuk.bin
+        if-no-files-found: error
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: preonic_rev3_xnuk.buildfiles
         path: |
-          preonic_rev3_xnuk.*
-          .**/preonic_rev3_xnuk.*
-          **/preonic_rev3_xnuk.*
+          .build/preonic_rev3_xnuk.*
