@@ -148,9 +148,9 @@ enum preonic_rgb_layers
 */
 
 COLO(Light_default, {0, 9, HSV_OFF});
-COLO(Light_danger, {3, 4, HSV_RED});
-COLO(Light_qwerty, {3, 4, HSV_GREEN});
-COLO(Light_game, {2, 4, HSV_BLUE});
+COLO(Light_danger, {2, 1, HSV_RED}, {6, 1, HSV_RED});
+COLO(Light_qwerty, {2, 1, HSV_GREEN}, {6, 1, HSV_GREEN});
+COLO(Light_game, {2, 1, HSV_BLUE}, {6, 1, HSV_BLUE});
 
 #undef COLO
 
