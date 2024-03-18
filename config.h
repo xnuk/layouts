@@ -46,7 +46,9 @@ SONG(DVORAK_SOUND) \
 #undef AUDIO_CLICKY
 #endif
 
-#define MIDI_BASIC
+#ifdef AUTO_SHIFT_MODIFIERS
+#undef
+#endif
 
 /* enable advanced MIDI features:
    - MIDI notes can be added to the keymap
