@@ -1,0 +1,76 @@
+# vim: sw=2
+name: technik-mit-build
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ technik-mit ]
+
+env:
+  qmk_ref: 1a284f2b92f1cc6334eb7c3e1c3618e659cafc63
+
+jobs:
+  qmk-clone:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/cache@v4
+      id: qmk-cache
+      with:
+        path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+        key: qmk-firmware-r2-${{ env.qmk_ref }}
+        lookup-only: true
+        enableCrossOsArchive: true
+
+    - if: steps.qmk-cache.outputs.cache-hit != 'true'
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.qmk_ref }}
+        repository: qmk/qmk_firmware
+        submodules: recursive
+        path: qmk_firmware
+
+    - if: steps.qmk-cache.outputs.cache-hit != 'true'
+      run: tar --exclude='./.git' --exclude='./keyboards' -C qmk_firmware -caf /tmp/qmk-${{ env.qmk_ref }}.tar.zst .
+
+  build:
+    needs: [ qmk-clone ]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+          substituters = https://cache.nixos.org https://cache.lix.systems https://nix-community.cachix.org
+    - uses: DeterminateSystems/magic-nix-cache-action@v7
+
+    - uses: actions/cache/restore@v4
+      with:
+        path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+        key: qmk-firmware-r2-${{ env.qmk_ref }}
+        fail-on-cache-miss: true
+        enableCrossOsArchive: true
+
+    - run: >
+        tar xf /tmp/qmk-${{ env.qmk_ref }}.tar.zst &&
+        rm /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+
+    - uses: actions/checkout@v4
+      with:
+        path: keyboards/technik_mit
+
+    - run: nix-shell --pure --run 'env SKIP_GIT=true make technik_mit:xnuk'
+
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: bin
+        path: '*.uf2'
+        if-no-files-found: error
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: buildfiles
+        path: |
+          .build/*
