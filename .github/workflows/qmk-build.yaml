@@ -1,0 +1,101 @@
+# vim: sw=2
+name: cornel-choc-build
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ cornel-choc ]
+
+env:
+  qmk_ref: eb5172f4b5b1589d83a0a4c63ad40340d68da673
+
+jobs:
+  qmk-clone:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/cache@v4
+      id: qmk-cache
+      with:
+        path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+        key: qmk-firmware-r2-${{ env.qmk_ref }}
+        lookup-only: true
+        enableCrossOsArchive: true
+
+    - if: steps.qmk-cache.outputs.cache-hit != 'true'
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.qmk_ref }}
+        repository: qmk/qmk_firmware
+        submodules: recursive
+        path: qmk_firmware
+
+    - if: steps.qmk-cache.outputs.cache-hit != 'true'
+      run: tar --exclude='./.git' --exclude='./keyboards' -C qmk_firmware -caf /tmp/qmk-${{ env.qmk_ref }}.tar.zst .
+
+  docker-image-cache:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/cache@v4
+      id: docker-cache
+      with:
+        path: /tmp/qmk_cli.tar.zst
+        # literally the version issue
+        key: qmk-cli-r1
+        lookup-only: true
+
+    - if: steps.docker-cache.outputs.cache-hit != 'true'
+      run: >
+        docker pull ghcr.io/qmk/qmk_cli:latest &&
+        docker save -o /tmp/qmk_cli.tar ghcr.io/qmk/qmk_cli:latest &&
+        zstd --rm /tmp/qmk_cli.tar
+
+  build:
+    needs: [ qmk-clone, docker-image-cache ]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/cache/restore@v4
+      with:
+        path: /tmp/qmk_cli.tar.zst
+        # literally the version issue
+        key: qmk-cli-r1
+        fail-on-cache-miss: true
+
+    - run: >
+        unzstd --stdout /tmp/qmk_cli.tar.zst | docker load &&
+        rm /tmp/qmk_cli.tar.zst
+
+    - uses: actions/cache/restore@v4
+      with:
+        path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+        key: qmk-firmware-r2-${{ env.qmk_ref }}
+        fail-on-cache-miss: true
+        enableCrossOsArchive: true
+
+    - run: >
+        tar xf /tmp/qmk-${{ env.qmk_ref }}.tar.zst &&
+        rm /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+
+    - uses: actions/checkout@v4
+      with:
+        path: keyboards/cornel_choc
+
+    - run: docker pull ghcr.io/qmk/qmk_cli:latest
+    - run: >
+        docker run
+        --mount type=bind,source="$(pwd)",target=/qmk-firmware
+        ghcr.io/qmk/qmk_cli:latest
+        sh -c 'cd qmk-firmware && SKIP_GIT=true make cornel_choc:default'
+
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: bin
+        path: '*.uf2'
+        if-no-files-found: error
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: buildfiles
+        path: |
+          .build/*
