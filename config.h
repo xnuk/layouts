@@ -3,10 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define PRODUCT Cornel Choc rv1
-
 #define MATRIX_COLS 6
 #define MATRIX_ROWS 10
 
@@ -24,17 +20,11 @@
 #define SERIAL_PIO_USE_PIO1
 
 // RGB matrix settings
-#define RGB_DI_PIN GP0
-#define RGBLIGHT_ANIMATIONS
+// #define RGBLIGHT_ANIMATIONS
 #define RGB_MATRIX_KEYPRESSES
 #define RGBLED_NUM 54
 #define DRIVER_LED_TOTAL 54
-#define RGB_MATRIX_SPLIT { 27, 27 }
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 
 // RGB matrix animations
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
