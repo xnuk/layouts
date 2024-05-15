@@ -1,48 +1,100 @@
 # vim: sw=2
-name: preonic-build
+name: cornel-choc-build
 
 on:
   workflow_dispatch: {}
   push:
-    branches:
-    - preonic
-    paths:
-    - '*.c'
-    - '*.h'
-    - '*.mk'
-    - .github/workflows/qmk-build.yaml
+    branches: [ preonic ]
+
+env:
+  qmk_ref: eb5172f4b5b1589d83a0a4c63ad40340d68da673
 
 jobs:
-  build:
+  qmk-clone:
     runs-on: ubuntu-latest
-
-    # Made an issue for pinning this stuff
-    # https://github.com/qmk/qmk_cli/issues/173
-    container: ghcr.io/qmk/qmk_cli
-
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/cache@v4
+      id: qmk-cache
       with:
-        ref: c5f544cd9696eb607e88b921d3fc31959ada914a
+        path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+        key: qmk-firmware-r2-${{ env.qmk_ref }}
+        lookup-only: true
+        enableCrossOsArchive: true
+
+    - if: steps.qmk-cache.outputs.cache-hit != 'true'
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.qmk_ref }}
         repository: qmk/qmk_firmware
         submodules: recursive
-        path: ''
+        path: qmk_firmware
+
+    - if: steps.qmk-cache.outputs.cache-hit != 'true'
+      run: tar --exclude='./.git' --exclude='./keyboards' -C qmk_firmware -caf /tmp/qmk-${{ env.qmk_ref }}.tar.zst .
+
+  docker-image-cache:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/cache@v4
+      id: docker-cache
+      with:
+        path: /tmp/qmk_cli.tar.zst
+        # literally the version issue
+        key: qmk-cli-r1
+        lookup-only: true
+
+    - if: steps.docker-cache.outputs.cache-hit != 'true'
+      run: >
+        docker pull ghcr.io/qmk/qmk_cli:latest &&
+        docker save -o /tmp/qmk_cli.tar ghcr.io/qmk/qmk_cli:latest &&
+        zstd --rm /tmp/qmk_cli.tar
+
+  build:
+    needs: [ qmk-clone, docker-image-cache ]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/cache/restore@v4
+      with:
+        path: /tmp/qmk_cli.tar.zst
+        # literally the version issue
+        key: qmk-cli-r1
+        fail-on-cache-miss: true
+
+    - run: >
+        unzstd --stdout /tmp/qmk_cli.tar.zst | docker load &&
+        rm /tmp/qmk_cli.tar.zst
+
+    - uses: actions/cache/restore@v4
+      with:
+        path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
+        key: qmk-firmware-r2-${{ env.qmk_ref }}
+        fail-on-cache-miss: true
+        enableCrossOsArchive: true
+
+    - run: >
+        tar xf /tmp/qmk-${{ env.qmk_ref }}.tar.zst &&
+        rm /tmp/qmk-${{ env.qmk_ref }}.tar.zst
 
     - uses: actions/checkout@v4
       with:
-        path: keyboards/preonic/keymaps/xnuk
+        path: keyboards/preonic
 
-    - run: pip3 install --user -r requirements.txt
-    - run: make preonic/rev3:xnuk
+    - run: docker pull ghcr.io/qmk/qmk_cli:latest
+    - run: >
+        docker run
+        --mount type=bind,source="$(pwd)",target=/qmk-firmware
+        ghcr.io/qmk/qmk_cli:latest
+        sh -c 'cd qmk-firmware && SKIP_GIT=true make preonic:xnuk'
 
     - uses: actions/upload-artifact@v4
       with:
-        name: preonic_rev3_xnuk.bin
-        path: preonic_rev3_xnuk.bin
+        name: bin
+        path: '*.bin'
         if-no-files-found: error
 
     - uses: actions/upload-artifact@v4
       with:
-        name: preonic_rev3_xnuk.buildfiles
+        name: buildfiles
         path: |
-          .build/preonic_rev3_xnuk.*
+          .build/*.*

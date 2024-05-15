@@ -1,22 +1,18 @@
-SRC += muse.c
-NKRO_ENABLE = yes
-DEBOUNCE_TYPE = sym_eager_pk
-CONSOLE_ENABLE = no
-RGBLIGHT_ENABLE = yes
-AUDIO_ENABLE = yes
+# Build Options
+#   change yes to no to disable
+#
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = yes      # Mouse keys
+EXTRAKEY_ENABLE = yes       # Audio control and System control
+CONSOLE_ENABLE = yes         # Console for debug
+COMMAND_ENABLE = yes       # Commands for debug and configuration
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+AUDIO_ENABLE = yes           # Audio output
+RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
 
-DIP_SWITCH_ENABLE = no
-LTO_ENABLE = yes
-BOOTMAGIC_ENABLE = no
-AUTO_SHIFT_ENABLE = no
-KEY_LOCK_ENABLE = no
-POINTING_DEVICE_ENABLE = no
-STENO_ENABLE = no
-TAP_DANCE_ENABLE = no
-TERMINAL_ENABLE = no
-UNICODE_ENABLE = no
-UNICODE_COMMON = no
-UNICODEMAP_ENABLE = no
-UCIS_ENABLE = no
-MIDI_ENABLE = no
-VARIABLE_TRACE = no
+# Do not enable RGB_MATRIX_ENABLE together with RGBLIGHT_ENABLE
+RGB_MATRIX_ENABLE = no
+
+ENCODER_ENABLE = yes
+DIP_SWITCH_ENABLE = yes
