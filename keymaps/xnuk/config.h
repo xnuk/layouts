@@ -1,7 +1,7 @@
 // importing from byungyoonc - need to customize
 #define MOUSEKEY_DELAY 2
 #define MOUSEKEY_INTERVAL 6
-#define MOUSEKEY_MOVE_DELTA 3
+#define MOUSEKEY_MOVE_DELTA 2
 #define MOUSEKEY_TIME_TO_MAX 60
 #define MOUSEKEY_WHEEL_DELAY 2
 #define MOUSEKEY_WHEEL_INTERVAL 40
