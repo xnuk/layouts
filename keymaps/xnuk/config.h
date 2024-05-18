@@ -8,7 +8,7 @@
 
 #define MK_COMBINED
 
-#define MASTER_RIGHT
+#define MASTER_LEFT
 
 #define TAPPING_TERM 150
 #define HOLD_ON_OTHER_KEY_PRESS
