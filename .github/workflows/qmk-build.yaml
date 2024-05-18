@@ -85,7 +85,7 @@ jobs:
         docker run
         --mount type=bind,source="$(pwd)",target=/qmk-firmware
         ghcr.io/qmk/qmk_cli:latest
-        sh -c 'cd qmk-firmware && SKIP_GIT=true make cornel_choc:default'
+        sh -c 'cd qmk-firmware && SKIP_GIT=true make cornel_choc:xnuk'
 
 
     - uses: actions/upload-artifact@v4
