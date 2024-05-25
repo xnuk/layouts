@@ -86,6 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 #undef _
 
 __attribute__ ((weak))
+const rgblight_segment_t PROGMEM colo_default[] = RGBLIGHT_LAYER_SEGMENTS
+( {0, 54, HSV_OFF} );
+
+__attribute__ ((weak))
 const rgblight_segment_t PROGMEM colo_upper[] = RGBLIGHT_LAYER_SEGMENTS
 ( {7, 3, HSV_BLUE}
 , {13, 1, HSV_GREEN}
@@ -94,11 +98,13 @@ const rgblight_segment_t PROGMEM colo_upper[] = RGBLIGHT_LAYER_SEGMENTS
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
-( colo_upper
+( colo_default
+, colo_upper
 );
 
 void keyboard_post_init_user(void) {
 	rgblight_layers = my_rgb_layers;
+	rgblight_set_layer_state(0, true);
 }
 
 void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
@@ -110,7 +116,7 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, Layer_lower, Layer_upper, Layer_adjust);
 
-    rgblight_set_layer_state(0, layer_state_cmp(state, Layer_upper));
+    rgblight_set_layer_state(1, layer_state_cmp(state, Layer_upper));
 
     return state;
 }
