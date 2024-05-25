@@ -40,7 +40,10 @@
 		"hue_steps": 8,
 		"saturation_steps": 8,
 		"brightness_steps": 8,
-		"driver": "ws2812"
+		"driver": "ws2812",
+		"layers": { "enabled": true },
+		"split": true,
+		"split_count": [27, 27]
 	},
 
 	"rgb_matrix": {
