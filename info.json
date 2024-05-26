@@ -43,7 +43,12 @@
 		"driver": "ws2812",
 		"layers": { "enabled": true },
 		"split": true,
-		"split_count": [27, 27]
+		"split_count": [27, 27],
+		"default": {
+			"on": false,
+			"sat": 0,
+			"val": 0
+		}
 	},
 
 	"rgb_matrix": {
