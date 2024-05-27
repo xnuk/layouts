@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 
 , [Layer_upper] = LAYOUT_split_4x6_3
 ( _,       _,       _,       _,       _,       _,                         _,       _,       _,       _,       _,       _
-, _,       KC_1,    KC_2,    KC_3,    _,       _,                         _,       _,       _,       _,       _,       KC_DEL
+, _,       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL
 , _,       KC_4,    KC_5,    KC_6,    KC_CIRC, _,                         KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END
-, _,       KC_7,    KC_8,    KC_9,    KC_0,    _,                         KC_PGUP, _,       _,       _,       KC_PGDN, _
+, _,       KC_7,    KC_8,    KC_9,    KC_0,    _,                         _,       KC_PGUP, _,       _,       KC_PGDN, _
 ,                                     _,       _,       _,       _,       _,       _
 )
 
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 ( _,       _,       _,       _,       _,       _,                         _,       _,       _,       _,       _,       _
 , _,       _,       _,       _,       _,       _,                         _,       _,       KC_MS_U, _,       _,       _
 , _,       KC_ACL2, KC_ACL1, KC_ACL0, Q_WHEEL, _,                         KC_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, _,       KC_BTN2
-, _,       _,       _,       _,       _,       _,                         KC_PGUP, _,       _,       _,       KC_PGDN, _
+, _,       _,       _,       _,       _,       _,                         _,       _,       _,       _,       _,       _
 ,                                     _,       _,       KC_BTN1, _,       _,       _
 )
 
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 ( _,       _,       _,       _,       _,       _,                         _,       _,       _,       _,       _,       _
 , _,       _,       _,       _,       _,       _,                         _,       _,       KC_WH_U, _,       _,       _
 , _,       KC_ACL2, KC_ACL1, KC_ACL0, Q_WHEEL, _,                         KC_BTN3, KC_WH_L, KC_WH_D, KC_WH_R, _,       KC_BTN2
-, _,       _,       _,       _,       _,       _,                         KC_PGUP, _,       _,       _,       KC_PGDN, _
+, _,       _,       _,       _,       _,       _,                         _,       _,       _,       _,       _,       _
 ,                                     _,       _,       KC_BTN1, _,       _,       _
 )
 
@@ -96,7 +96,7 @@ const rgblight_segment_t PROGMEM colo_upper[] = RGBLIGHT_LAYER_SEGMENTS
 , {19, 4, HSV_BLUE}
 
 , {39, 1, HSV_ORANGE}, {40, 4, HSV_PURPLE}, {44, 1, HSV_ORANGE}
-, {46, 1, HSV_ORANGE}, {50, 1, HSV_ORANGE}
+, {46, 1, HSV_ORANGE}, {49, 1, HSV_ORANGE}
 );
 
 __attribute__ ((weak))
@@ -108,7 +108,6 @@ const rgblight_segment_t PROGMEM colo_mouse[] = RGBLIGHT_LAYER_SEGMENTS
 
 , {36, 1, HSV_BLUE}
 , {39, 1, HSV_GREEN}, {40, 3, HSV_BLUE}, {44, 1, HSV_PURPLE}
-, {46, 1, HSV_ORANGE}, {50, 1, HSV_ORANGE}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
