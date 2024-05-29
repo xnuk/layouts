@@ -110,10 +110,16 @@ const rgblight_segment_t PROGMEM colo_mouse[] = RGBLIGHT_LAYER_SEGMENTS
 , {39, 1, HSV_GREEN}, {40, 3, HSV_BLUE}, {44, 1, HSV_PURPLE}
 );
 
+__attribute__ ((weak))
+const rgblight_segment_t PROGMEM colo_danger[] = RGBLIGHT_LAYER_SEGMENTS
+( {33, 1, HSV_RED}
+);
+
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST
 ( colo_default
 , colo_upper
 , colo_mouse
+, colo_danger
 );
 
 void keyboard_post_init_user(void) {
@@ -141,6 +147,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 		2,
 		layer_state_cmp(state, Layer_mouse)
 		|| layer_state_cmp(state, Layer_wheel)
+	);
+
+	rgblight_set_layer_state(
+		3,
+		layer_state_cmp(state, Layer_danger)
 	);
 
 	return state;
