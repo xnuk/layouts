@@ -1,5 +1,5 @@
 # vim: sw=2
-name: cornel-choc-build
+name: preonic-build
 
 on:
   workflow_dispatch: {}
