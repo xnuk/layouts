@@ -17,6 +17,28 @@ engine:
     Esc:
       behavior: !Switch Latin
       result: Bypass
+    S-Hangul:
+      behavior: !Mode Emoji
+      result: ConsumeIfProcessed
+
+    # # other modes don't work
+    # C-Hangul:
+    #   behavior: !Mode Hanja
+    #   result: ConsumeIfProcessed
+    # M-Hangul:
+    #   behavior: !Mode Math
+    #   result: ConsumeIfProcessed
+
+  mode_hotkeys:
+    Emoji: &commit
+      Enter:
+        behavior: Commit
+        result: ConsumeIfProcessed
+      # Tab:
+      #   behavior: Commit
+      #   result: ConsumeIfProcessed
+    # Hanja: *commit
+    # Math: *commit
 
   latin:
     preferred_direct: true
