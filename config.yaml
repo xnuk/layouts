@@ -1,3 +1,5 @@
+kime_version: '^4.0.0-pre.1'
+
 daemon:
   modules:
   - Wayland
@@ -11,14 +13,17 @@ engine:
   global_category_state: true
   global_hotkeys:
     Hangul: &toggle
-      behavior: !Toggle [Hangul, Latin]
+      behavior:
+        Toggle: [Hangul, Latin]
       result: Consume
     AltR: *toggle
     Esc:
-      behavior: !Switch Latin
+      behavior:
+        Switch: Latin
       result: Bypass
     S-Hangul:
-      behavior: !Mode Emoji
+      behavior:
+        Mode: Emoji
       result: ConsumeIfProcessed
 
     # # other modes don't work
