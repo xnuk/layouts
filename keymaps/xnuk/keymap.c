@@ -15,7 +15,7 @@ enum custom_layers
 #define Q_LALT LALT_T(KC_TAB)
 #define Q_LCTL LCTL_T(KC_ESC)
 #define Q_LSFT SC_LSPO
-#define Q_LOWER LT(Layer_lower,KC_RIGHT)
+#define Q_LOWER MO(Layer_lower)
 #define Q_UPPER LT(Layer_upper,KC_LNG1)
 #define Q_MOUSE LT(Layer_mouse,KC_LEFT)
 #define Q_WHEEL MO(Layer_wheel)
