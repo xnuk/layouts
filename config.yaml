@@ -12,11 +12,18 @@ engine:
   default_category: Latin
   global_category_state: true
   global_hotkeys:
-    Hangul: &toggle
+    Hangul:
       behavior:
-        Toggle: [Hangul, Latin]
+        Toggle:
+        - Hangul
+        - Latin
       result: Consume
-    AltR: *toggle
+    AltR:
+      behavior:
+        Toggle:
+        - Hangul
+        - Latin
+      result: Consume
     Esc:
       behavior:
         Switch: Latin
@@ -35,7 +42,7 @@ engine:
     #   result: ConsumeIfProcessed
 
   mode_hotkeys:
-    Emoji: &commit
+    Emoji:
       Enter:
         behavior: Commit
         result: ConsumeIfProcessed
