@@ -32,38 +32,18 @@ jobs:
     - if: steps.qmk-cache.outputs.cache-hit != 'true'
       run: tar --exclude='./.git' --exclude='./keyboards' -C qmk_firmware -caf /tmp/qmk-${{ env.qmk_ref }}.tar.zst .
 
-  docker-image-cache:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/cache@v4
-      id: docker-cache
-      with:
-        path: /tmp/qmk_cli.tar.zst
-        # literally the version issue
-        key: qmk-cli-r1
-        lookup-only: true
-
-    - if: steps.docker-cache.outputs.cache-hit != 'true'
-      run: >
-        docker pull ghcr.io/qmk/qmk_cli:latest &&
-        docker save -o /tmp/qmk_cli.tar ghcr.io/qmk/qmk_cli:latest &&
-        zstd --rm /tmp/qmk_cli.tar
-
   build:
-    needs: [ qmk-clone, docker-image-cache ]
+    needs: [ qmk-clone ]
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/cache/restore@v4
+    - uses: cachix/install-nix-action@v27
       with:
-        path: /tmp/qmk_cli.tar.zst
-        # literally the version issue
-        key: qmk-cli-r1
-        fail-on-cache-miss: true
-
-    - run: >
-        unzstd --stdout /tmp/qmk_cli.tar.zst | docker load &&
-        rm /tmp/qmk_cli.tar.zst
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+          substituters = https://cache.nixos.org https://cache.lix.systems https://nix-community.cachix.org
+    - uses: DeterminateSystems/magic-nix-cache-action@v7
 
     - uses: actions/cache/restore@v4
       with:
@@ -80,12 +60,7 @@ jobs:
       with:
         path: keyboards/cornel_choc
 
-    - run: docker pull ghcr.io/qmk/qmk_cli:latest
-    - run: >
-        docker run
-        --mount type=bind,source="$(pwd)",target=/qmk-firmware
-        ghcr.io/qmk/qmk_cli:latest
-        sh -c 'cd qmk-firmware && SKIP_GIT=true make cornel_choc:xnuk'
+    - run: nix-shell --pure --run 'env SKIP_GIT=true make cornel_choc:xnuk'
 
 
     - uses: actions/upload-artifact@v4
