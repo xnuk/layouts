@@ -32,6 +32,10 @@
 		"debounce_type": "sym_eager_pk"
 	},
 	"debounce": 40,
+	"tapping": {
+		"hold_on_other_key_press": true,
+		"term": 150
+	},
 	"mouse_key": {
 		"delay": 2,
 		"interval": 6,
