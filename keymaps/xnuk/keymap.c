@@ -58,17 +58,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 )
 
 , [Layer_mouse] = LAYOUT_planck_mit
-( _   , _                , KC_MS_BTN2       , KC_MS_BTN3        , KC_MS_BTN1      , _               , _               , _                , KC_MS_UP       , _                , _      , _
-, _   , KC_MS_ACCEL2     , KC_MS_ACCEL1     , KC_MS_ACCEL0      , MO(Layer_wheel) , KC_MS_BTN3      , KC_MS_BTN3      , KC_MS_LEFT       , KC_MS_DOWN     , KC_MS_RIGHT      , _      , KC_MS_BTN2
-, _   , _                , _                , _                 , _               , _               , _               , _                , _              , _                , _      , _
-, _   , _                , _                , _                 , _                       , KC_MS_BTN1                , _                , _              , _                , _      , _
+( _   , _         , MS_BTN2   , MS_BTN3  , MS_BTN1         , _          , _        , _          , MS_UP     , _       , _    , _
+, _   , MS_ACL2   , MS_ACL1   , MS_ACL0  , MO(Layer_wheel) , MS_BTN3    , MS_BTN3  , MS_LEFT    , MS_DOWN   , MS_RGHT , _    , MS_BTN2
+, _   , _         , _         , _        , _               , _          , _        , _          , _         , _       , _    , _
+, _   , _         , _         , _        , _                    , MS_BTN1            , _          , _         , _       , _    , _
 )
 
 , [Layer_wheel] = LAYOUT_planck_mit
-( _   , _                , KC_MS_BTN2       , KC_MS_BTN3        , KC_MS_BTN1    , _               , _               , _                   , KC_MS_WH_UP       , _                   , _      , _
-, _   , KC_MS_ACCEL2     , KC_MS_ACCEL1     , KC_MS_ACCEL0      , _             , KC_MS_BTN3      , KC_MS_BTN3      , KC_MS_WH_LEFT       , KC_MS_WH_DOWN     , KC_MS_WH_RIGHT      , _      , KC_MS_BTN2
-, _   , _                , _                , _                 , _             , _               , _               , _                   , _                 , _                   , _      , _
-, _   , _                , _                , _                 , _                      , KC_MS_BTN1               , _                   , _                 , _                   , _      , _
+( _   , _         , MS_BTN2   , MS_BTN3  , MS_BTN1    , _            , _         , _         , MS_WHLU     , _         , _      , _
+, _   , MS_ACL2   , MS_ACL1   , MS_ACL0  , _          , MS_BTN3      , MS_BTN3   , MS_WHLL   , MS_WHLD     , MS_WHLR   , _      , MS_BTN2
+, _   , _         , _         , _        , _          , _            , _         , _         , _           , _         , _      , _
+, _   , _         , _         , _        , _                   , MS_BTN1         , _         , _           , _         , _      , _
 )
 
 };
