@@ -99,3 +99,4 @@ jobs:
         name: buildfiles
         path: |
           .build/*
+        include-hidden-files: true
