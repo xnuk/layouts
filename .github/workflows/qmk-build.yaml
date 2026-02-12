@@ -7,7 +7,7 @@ on:
     branches: [ technik-mit ]
 
 env:
-  qmk_ref: 1a284f2b92f1cc6334eb7c3e1c3618e659cafc63
+  qmk_ref: 45ccd2e9351b979f8eb8fa359db732e5374b0d53
 
 jobs:
   qmk-clone:
