@@ -1,4 +1,5 @@
 {
+	"$schema": "https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/data/schemas/keyboard.jsonschema",
 	"manufacturer": "Choi Byungyoon",
 	"keyboard_name": "technik_mit",
 	"maintainer": "Choi Byungyoon",
@@ -22,10 +23,10 @@
 		"device_version": "1.0.0",
 		"pid": "0x0000",
 		"vid": "0xFEED",
-		"force_nkro": true,
 		"polling_interval": 1,
 		"max_power": 100
 	},
+	"host": { "default": { "nkro": true } },
 	"build": {
 		"firmware_format": "uf2",
 		"lto": true,
