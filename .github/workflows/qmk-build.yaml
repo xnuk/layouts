@@ -14,7 +14,7 @@ jobs:
   qmk-clone:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       id: qmk-cache
       with:
         path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
@@ -23,7 +23,7 @@ jobs:
         enableCrossOsArchive: true
 
     - if: steps.qmk-cache.outputs.cache-hit != 'true'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         ref: ${{ env.qmk_ref }}
         repository: qmk/qmk_firmware
@@ -36,7 +36,7 @@ jobs:
   docker-image-cache:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       id: docker-cache
       with:
         path: /tmp/qmk_cli.tar.zst
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       id: docker-cache
       with:
         path: /tmp/qmk_cli.tar.zst
@@ -65,7 +65,7 @@ jobs:
         unzstd --stdout /tmp/qmk_cli.tar.zst | docker load &&
         rm /tmp/qmk_cli.tar.zst
 
-    - uses: actions/cache/restore@v4
+    - uses: actions/cache/restore@v5
       with:
         path: /tmp/qmk-${{ env.qmk_ref }}.tar.zst
         key: qmk-firmware-r2-${{ env.qmk_ref }}
@@ -76,7 +76,7 @@ jobs:
         tar xf /tmp/qmk-${{ env.qmk_ref }}.tar.zst &&
         rm /tmp/qmk-${{ env.qmk_ref }}.tar.zst
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: keyboards/technik_mit
 
@@ -88,13 +88,13 @@ jobs:
         sh -c 'cd qmk-firmware && SKIP_GIT=true make technik_mit:xnuk'
 
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v6
       with:
         name: bin
         path: '*.uf2'
         if-no-files-found: error
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v6
       with:
         name: buildfiles
         path: |
