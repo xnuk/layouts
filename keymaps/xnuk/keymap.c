@@ -23,10 +23,10 @@ enum layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 { [Layer_default] = LAYOUT_planck_mit
-( LALT_T(KC_TAB)   , KC_Q      , KC_W      , KC_F      , KC_P                          , KC_B     , KC_J     , KC_L                           , KC_U                      , KC_Y      , KC_SCLN   , KC_BSPC
-, LCTL_T(KC_ESC)   , KC_A      , KC_R      , KC_S      , KC_T                          , KC_G     , KC_M     , KC_N                           , KC_E                      , KC_I      , KC_O      , KC_MINS
-, SC_LSPO          , KC_Z      , KC_X      , KC_C      , KC_D                          , KC_V     , KC_K     , KC_H                           , KC_COMMA                  , KC_DOT    , KC_SLASH  , KC_ENTER
-, ALL_T(KC_BSLS)   , KC_LALT   , KC_LCTL  , KC_LGUI   , LT(Layer_left_mod,KC_RIGHT)        , KC_SPC          , LT(Layer_right_mod,KC_LNG1)    , LT(Layer_mouse,KC_LEFT)   , KC_DOWN   , KC_UP     , KC_RIGHT
+( LALT_T(KC_TAB)   , KC_Q      , KC_W      , KC_F      , KC_P                  , KC_B     , KC_J     , KC_L                           , KC_U                      , KC_Y      , KC_SCLN   , KC_BSPC
+, LCTL_T(KC_ESC)   , KC_A      , KC_R      , KC_S      , KC_T                  , KC_G     , KC_M     , KC_N                           , KC_E                      , KC_I      , KC_O      , KC_MINS
+, SC_LSPO          , KC_Z      , KC_X      , KC_C      , KC_D                  , KC_V     , KC_K     , KC_H                           , KC_COMMA                  , KC_DOT    , KC_SLASH  , KC_ENTER
+, ALL_T(KC_BSLS)   , KC_LALT   , KC_LCTL   , KC_LGUI   , MO(Layer_left_mod)        , KC_SPC          , LT(Layer_right_mod,KC_LNG1)    , LT(Layer_mouse,KC_LEFT)   , KC_DOWN   , KC_UP     , KC_RIGHT
 )
 
 , [Layer_left_mod] = LAYOUT_planck_mit
