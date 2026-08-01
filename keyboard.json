@@ -18,7 +18,7 @@
 		"rows": ["GP1", "GP3", "GP23", "GP19", "GP2", "GP4", "GP20", "GP18"]
 	},
 	"processor": "RP2040",
-	"url": "",
+	"url": "https://github.com/xnuk/layouts/tree/technik-mit",
 	"usb": {
 		"device_version": "1.0.0",
 		"pid": "0x0000",
